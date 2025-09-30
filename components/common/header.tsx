@@ -3,21 +3,8 @@
 import Image from "next/image";
 import React from "react";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { AlignRight, Search, User, UserRound } from "lucide-react";
+
+import { AlignRight } from "lucide-react";
 
 import {
   NavigationMenu,
@@ -52,23 +39,14 @@ import {
 import {
   Dialog,
   DialogContent,
-  // DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { LoginForm } from "../login-form";
-import { Input } from "../ui/input";
-// import { signOut, useSession } from "next-auth/react";
+import AuthButton from "../auth-button";
 
 const Header = () => {
-  //   const { status, data: session } = useSession();
-  //   console.log(status, session);
-
-  function logoutHandler() {
-    // signOut();
-  }
-
   return (
     <>
       <header className="relative mx-auto h-18 max-w-5xl justify-between border-b-2 border-neutral-600 px-7 md:flex md:h-auto md:items-center md:border-0 md:py-6">
@@ -114,6 +92,7 @@ const Header = () => {
         </div>
         <div className="flex h-full items-center justify-end">
           <div className="flex items-center gap-1">
+            <AuthButton />
             {false && (
               <Dialog>
                 <DialogTrigger asChild>
@@ -131,67 +110,7 @@ const Header = () => {
                 </DialogContent>
               </Dialog>
             )}
-            {true && (
-              <>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      size={"icon"}
-                      className="rounded-full bg-white text-black hover:bg-transparent"
-                    >
-                      <UserRound />
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56" align="end">
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                    <DropdownMenuGroup>
-                      <DropdownMenuItem>
-                        Profile
-                        <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        Billing
-                        <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
-                      </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        Settings
-                        <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
-                      </DropdownMenuItem>
-                    </DropdownMenuGroup>
-                    {/* <DropdownMenuSeparator />
-                    <DropdownMenuGroup>
-                      <DropdownMenuItem>Team</DropdownMenuItem>
-                      <DropdownMenuSub>
-                        <DropdownMenuSubTrigger>
-                          Invite users
-                        </DropdownMenuSubTrigger>
-                        <DropdownMenuPortal>
-                          <DropdownMenuSubContent>
-                            <DropdownMenuItem>Email</DropdownMenuItem>
-                            <DropdownMenuItem>Message</DropdownMenuItem>
-                            <DropdownMenuSeparator />
-                            <DropdownMenuItem>More...</DropdownMenuItem>
-                          </DropdownMenuSubContent>
-                        </DropdownMenuPortal>
-                      </DropdownMenuSub>
-                      <DropdownMenuItem>
-                        New Team
-                        <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
-                      </DropdownMenuItem>
-                    </DropdownMenuGroup> */}
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem>GitHub</DropdownMenuItem>
-                    <DropdownMenuItem>Support</DropdownMenuItem>
-                    <DropdownMenuItem disabled>API</DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={logoutHandler}>
-                      Log out
-                      <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </>
-            )}
+
             <Button className="bg-white text-black hover:bg-transparent md:hidden">
               <AlignRight />
             </Button>
