@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Copy, Check } from "lucide-react";
 
 export default function MarkdownCheatSheet() {
-  const [copiedIndex, setCopiedIndex] = useState(null);
+  const [copiedIndex, setCopiedIndex] = useState<string | null>(null);
 
-  const copyToClipboard = (text, index) => {
+  const copyToClipboard = (text: string, index: string) => {
     navigator.clipboard.writeText(text);
     setCopiedIndex(index);
     setTimeout(() => setCopiedIndex(null), 2000);
