@@ -1,7 +1,4 @@
-"use client"; // This component must be a Client Component
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { BookOpen, Code, SearchIcon } from "lucide-react";
 import { ButtonGroup } from "@/components/ui/button-group";
 
@@ -10,12 +7,9 @@ import {
   InputGroupAddon,
   InputGroupButton,
   InputGroupInput,
-  InputGroupText,
-  InputGroupTextarea,
 } from "@/components/ui/input-group";
 
 export default function HomePage() {
-  const router = useRouter();
   return (
     <main className="flex min-h-[calc(100vh-8.875rem)] items-center md:min-h-[calc(100vh-19.493rem)]">
       <div className="w-full px-7">

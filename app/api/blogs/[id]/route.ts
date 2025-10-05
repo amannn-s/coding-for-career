@@ -26,7 +26,7 @@ export async function GET(
     }
 
     return NextResponse.json(blog);
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: "Failed to fetch blog" },
       { status: 500 }

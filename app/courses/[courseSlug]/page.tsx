@@ -182,7 +182,7 @@ const CourseMain = function () {
 
         <section>
           <h2>Example</h2>
-          <code>print("Hello, World!")</code>
+          <code>print(&quot;Hello, World!&quot;)</code>
         </section>
 
         <div className="flex items-center justify-between gap-2.5 py-4">

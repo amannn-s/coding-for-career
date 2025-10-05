@@ -5,6 +5,18 @@ import remarkGfm from "remark-gfm";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
+import { ClassAttributes, HTMLAttributes, ReactNode } from "react";
+import { ExtraProps } from "react-markdown";
+
+interface CodeComponentProps
+  extends ClassAttributes<HTMLElement>,
+    HTMLAttributes<HTMLElement>,
+    ExtraProps {
+  inline?: boolean;
+  className?: string;
+  children?: ReactNode;
+}
+
 interface MarkdownRendererProps {
   content: string;
 }
@@ -58,15 +70,19 @@ export default function MarkdownRenderer({ content }: MarkdownRendererProps) {
               {children}
             </blockquote>
           ),
-          code: ({ inline, className, children, ...props }: any) => {
+          code: ({
+            inline,
+            className,
+            children,
+            ...props
+          }: CodeComponentProps) => {
             const match = /language-(\w+)/.exec(className || "");
             return !inline && match ? (
               <SyntaxHighlighter
-                style={vscDarkPlus}
+                style={vscDarkPlus as { [key: string]: React.CSSProperties }}
                 language={match[1]}
                 PreTag="div"
                 className="rounded-lg mb-4"
-                {...props}
               >
                 {String(children).replace(/\n$/, "")}
               </SyntaxHighlighter>

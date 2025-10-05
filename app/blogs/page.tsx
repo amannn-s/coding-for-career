@@ -1,6 +1,5 @@
 "use client";
 
-import MarkdownRenderer from "@/components/markdown-renderer";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -135,10 +134,6 @@ function BlogCard({
       console.error("Failed to toggle like:", error);
     }
   };
-
-  const content = showFullContent
-    ? blog.content
-    : blog.content.slice(0, 200) + (blog.content.length > 200 ? "..." : "");
 
   return (
     <Card className="shadow-none gap-1 corner-squircle">
