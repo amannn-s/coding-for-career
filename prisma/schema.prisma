@@ -19,7 +19,7 @@ model User {
   createdAt DateTime @default(now())
   accounts Account[]
   sessions Session[]
-  posts Post[]
+  blogs Blog[]
   comments Comment[]
   likes Like[]
 }
@@ -59,7 +59,7 @@ model VerificationToken {
   @@id([identifier, token])
 }
 
-model Post {
+model Blog {
   id String @id @default(cuid())
   title String
   content String?
@@ -75,22 +75,22 @@ model Post {
 model Comment {
   id String @id @default(cuid())
   content String
-  postId String
+  blogId String
   authorId String
   createdAt DateTime @default(now())
-  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  blog Blog @relation(fields: [blogId], references: [id], onDelete: Cascade)
   author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
 }
 
 model Like {
   id String @id @default(cuid())
-  postId String
-  authorId String
+  blogId String
+  userId String
   createdAt DateTime @default(now())
-  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
-  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  blog Blog @relation(fields: [blogId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([postId])
+  @@unique([blogId, userId])
 }
 
 // npx prisma generate

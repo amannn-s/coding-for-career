@@ -121,6 +121,10 @@
   }
 }
 
+body::selection {
+  @apply bg-pink-400/50;
+}
+
 .corner-squircle {
   corner-shape: squircle;
 }

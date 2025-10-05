@@ -131,7 +131,7 @@ const Header = () => {
                       {menu.title}
                     </NavigationMenuTrigger>
                     <NavigationMenuContent className="!rounded-2xl corner-squircle !bg-white/80 backdrop-blur-sm !shadow-xl">
-                      <ul className="grid w-[200px] gap-4">
+                      <ul className="grid w-56 gap-4 font-normal">
                         <li>
                           {menu.items.map((item, idx) => (
                             <NavigationMenuLink asChild key={idx}>

@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Avatar, AvatarImage, AvatarFallback } from "./ui/avatar";
+import Link from "next/link";
 
 const AuthButton = () => {
   const { data: session, status } = useSession();
@@ -61,6 +62,11 @@ const AuthButton = () => {
             </p>
           </div>
         </DropdownMenuItem>
+        {session?.user?.role === "ADMIN" && (
+          <DropdownMenuItem asChild>
+            <Link href={"/blogs/create"}>Create blog</Link>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem onClick={() => signOut()}>Sign out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
