@@ -61,8 +61,8 @@ model VerificationToken {
 model Blog {
   id         String     @id @default(cuid())
   title      String
-  slug       String     @unique
-  excerpt    String
+  slug       String     @unique @default("no-slug")
+  excerpt    String     @default("No excerpt provided")
   content    String?
   thumbnail  String?
   published  Boolean    @default(true)
