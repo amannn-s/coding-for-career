@@ -26,12 +26,19 @@ const CoursesPage = () => {
 
   return (
     <main className="min-h-[calc(100vh-8.875rem)] md:min-h-[calc(100vh-19.493rem)]">
-      <div className="mx-auto max-w-5xl px-4 py-18 space-y-12">
+      <div className="mx-auto max-w-5xl px-4 pt-18 space-y-12">
+        <h1 className="text-3xl md:text-4xl font-bold text-text-800">
+          Latest & Updated Courses at your finger tips!
+        </h1>
+      </div>
+      <div className="mx-auto max-w-5xl px-4 py-8 space-y-8">
         {navigationItems.map((item, index) => {
           const { title, items } = item;
           return (
             <div key={index}>
-              <h2 className="text-xl md:text-2xl font-bold mb-8">{title}</h2>
+              <h2 className="text-lg md:text-xl font-semibold mb-4 text-gray-600">
+                {title}
+              </h2>
 
               <div className="grid grid-cols-2: md:grid-cols-3 gap-4">
                 {items.map((subItem) => {
@@ -39,10 +46,10 @@ const CoursesPage = () => {
                   return (
                     <article
                       key={label}
-                      className="px-4 py-6 rounded-2xl corner-squircle flex gap-4 border-dashed border-2 hover:shadow-xl hover:shadow-neutral-100 transition-all cursor-pointer"
+                      className="px-4 py-6 rounded-xl corner-squircle flex gap-4 border-dashed border-2 hover:bg-neutral-50 transition-all cursor-pointer"
                       onClick={() => router.push(`${href}`)}
                     >
-                      <div className="aspect-square size-20">
+                      <div className="aspect-square size-16 md:size-20">
                         <span
                           className={`  ${
                             active ? "fill-neutral-800" : "fill-neutral-500"
@@ -52,7 +59,11 @@ const CoursesPage = () => {
                         </span>
                       </div>
                       <div className="space-y-1">
-                        <h4 className="text-lg md:text-xl font-semibold">
+                        <h4
+                          className={`text-lg md:text-xl font-semibold ${
+                            active ? "text-neutral-800" : "text-neutral-500"
+                          }`}
+                        >
                           {label}
                         </h4>
                         <p className="text-sm text-neutral-600">

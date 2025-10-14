@@ -1,14 +1,21 @@
+"use client";
+import MarkdownRenderer from "@/components/markdown-renderer";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight, Bookmark } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 
 const SingleCoursesPage = () => {
+  const [activeItem, setActiveItem] = useState("Python Home");
+
   return (
     <div className="mt-12 min-h-[calc(100vh-8.875rem)] md:mt-0 md:min-h-[calc(100vh-19.493rem)]">
       <div className="mx-auto max-w-6xl px-4">
         <div className="flex">
-          <CourseLeftBar />
-          <CourseMain />
+          <CourseLeftBar
+            activeItem={activeItem}
+            setActiveItem={setActiveItem}
+          />
+          <CourseMain activeItem={activeItem} setActiveItem={setActiveItem} />
           <CourseRightBar />
         </div>
       </div>
@@ -18,32 +25,34 @@ const SingleCoursesPage = () => {
 
 export default SingleCoursesPage;
 
-const CourseLeftBar = function () {
-  const activeItem = "Python Intro"; // you can pass this as a prop
-
+const CourseLeftBar = function ({
+  activeItem,
+  setActiveItem,
+}: {
+  activeItem: string;
+  setActiveItem: React.Dispatch<React.SetStateAction<string>>;
+}) {
   return (
     <aside className="hidden min-w-3xs p-4 lg:block">
       <div>
         <ul className="space-y-2.5">
-          {sidebarData.map((section, i) => (
+          {courseData.map((section, i) => (
             <li key={i} className="space-y-0.5">
               <h3 className="text-base font-bold text-neutral-500">
                 {section.heading}
               </h3>
-              <ul className="space-y-0.5">
+              <div className="grid space-y-0.5">
                 {section.items.map((item, j) => (
-                  <li
+                  <Button
                     key={j}
-                    className={`rounded px-1.5 ${
-                      item === activeItem
-                        ? "bg-blue-400 font-medium text-white"
-                        : ""
-                    }`}
+                    variant={item.title === activeItem ? "blue" : "ghost"}
+                    className="justify-start text-left"
+                    onClick={() => setActiveItem(item.title)}
                   >
-                    {item}
-                  </li>
+                    {item.title}
+                  </Button>
                 ))}
-              </ul>
+              </div>
             </li>
           ))}
         </ul>
@@ -52,148 +61,86 @@ const CourseLeftBar = function () {
   );
 };
 
-const CourseMain = function () {
+const CourseMain = function ({
+  activeItem,
+  setActiveItem,
+}: {
+  activeItem: string;
+  setActiveItem: React.Dispatch<React.SetStateAction<string>>;
+}) {
+  // Flatten all lessons into one array
+  const allLessons = courseData.flatMap((section) => section.items);
+
+  // Find active lesson
+  const currentIndex = allLessons.findIndex((c) => c.title === activeItem);
+  const course = allLessons[currentIndex];
+
+  // Compute prev/next
+  const prevLesson = allLessons[currentIndex - 1];
+  const nextLesson = allLessons[currentIndex + 1];
+
   return (
     <>
-      <main className="course-content-main col-span-8 mx-auto max-w-2xl py-4">
+      <main className="course-content-main col-span-8 mx-auto w-full max-w-2xl py-4">
         <div className="flex items-center justify-between py-4">
           <h1 className="">Python Introduction</h1>
           <div className="flex items-center gap-2.5">
-            <Button
-              size={"icon"}
-              variant={"secondary"}
-              className="text-pink-500"
-            >
+            <Button size={"icon"} variant={"pink"}>
               <Bookmark strokeWidth={2} />
             </Button>
-            <Button
-              size={"icon"}
-              variant={"secondary"}
-              className="text-blue-500"
-            >
-              <ArrowLeft strokeWidth={2} />
-            </Button>
-            <Button
-              size={"icon"}
-              variant={"secondary"}
-              className="text-blue-500"
-            >
-              <ArrowRight strokeWidth={2} />
-            </Button>
+            {prevLesson ? (
+              <Button
+                size={"icon"}
+                variant={"blue"}
+                onClick={() => setActiveItem(prevLesson.title)}
+              >
+                <ArrowLeft strokeWidth={2} />
+              </Button>
+            ) : (
+              <div />
+            )}
+            {nextLesson ? (
+              <Button
+                size={"icon"}
+                variant={"blue"}
+                onClick={() => setActiveItem(nextLesson.title)}
+              >
+                <ArrowRight strokeWidth={2} />
+              </Button>
+            ) : (
+              <div />
+            )}
           </div>
         </div>
 
-        <section>
-          <h2>What is Python?</h2>
-          <p>
-            Python is a popular programming language. It was created by Guido
-            van Rossum, and released in 1991.
-          </p>
+        {/* Render Markdown */}
+        <MarkdownRenderer content={course?.content || "_No content found._"} />
 
-          <p>It is used for:</p>
-          <ul>
-            <li>web development (server-side),</li>
-            <li>software development,</li>
-            <li>mathematics,</li>
-            <li>system scripting.</li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>What can Python do?</h2>
-          <ul>
-            <li>Python can be used on a server to create web applications.</li>
-            <li>Python can be used alongside software to create workflows.</li>
-            <li>
-              Python can connect to database systems. It can also read and
-              modify files.
-            </li>
-            <li>
-              Python can be used to handle big data and perform complex
-              mathematics.
-            </li>
-            <li>
-              Python can be used for rapid prototyping, or for production-ready
-              software development.
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>Why Python?</h2>
-          <ul>
-            <li>
-              Python works on different platforms (Windows, Mac, Linux,
-              Raspberry Pi, etc).
-            </li>
-            <li>
-              Python has a simple syntax similar to the English language.{" "}
-            </li>
-            <li>
-              Python has syntax that allows developers to write programs with
-              fewer lines than some other programming languages.
-            </li>
-
-            <li>
-              Python runs on an interpreter system, meaning that code can be
-              executed as soon as it is written. This means that prototyping can
-              be very quick.
-            </li>
-            <li>
-              Python can be treated in a procedural way, an object-oriented way
-              or a functional way.
-            </li>
-          </ul>
-
-          <h3>Good to know</h3>
-          <ul>
-            <li>
-              The most recent major version of Python is Python 3, which we
-              shall be using in this tutorial. However, Python 2, although not
-              being updated with anything other than security updates, is still
-              quite popular.
-            </li>
-            <li>
-              In this tutorial Python will be written in a text editor. It is
-              possible to write Python in an Integrated Development Environment,
-              such as Thonny, Pycharm, Netbeans or Eclipse which are
-              particularly useful when managing larger collections of Python
-              files.
-            </li>
-          </ul>
-
-          <h3>Python Syntax compared to other programming languages</h3>
-          <ul>
-            <li>
-              Python was designed for readability, and has some similarities to
-              the English language with influence from mathematics.
-            </li>
-            <li>
-              Python uses new lines to complete a command, as opposed to other
-              programming languages which often use semicolons or parentheses.
-            </li>
-            <li>
-              Python relies on indentation, using whitespace, to define scope;
-              such as the scope of loops, functions and classes. Other
-              programming languages often use curly-brackets for this purpose.
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h2>Example</h2>
-          <code>print(&quot;Hello, World!&quot;)</code>
-        </section>
-
+        {/* Prev / Next Navigation */}
         <div className="flex items-center justify-between gap-2.5 py-4">
-          <Button className="bg-white text-blue-500">
-            <ArrowLeft strokeWidth={2} />
-            Python Home
-          </Button>
-          <Button className="bg-white text-blue-500">
-            <ArrowRight strokeWidth={2} />
-            Python Get Started
-          </Button>
+          {prevLesson ? (
+            <Button
+              variant={"blue"}
+              onClick={() => setActiveItem(prevLesson.title)}
+            >
+              <ArrowLeft strokeWidth={2} className="mr-2" />
+              {prevLesson.title}
+            </Button>
+          ) : (
+            <div />
+          )}
+
+          {nextLesson ? (
+            <Button
+              variant={"blue"}
+              onClick={() => setActiveItem(nextLesson.title)}
+            >
+              {nextLesson.title}
+              <ArrowRight strokeWidth={2} className="ml-2" />
+            </Button>
+          ) : (
+            <div />
+          )}
         </div>
       </main>
     </>
@@ -216,47 +163,187 @@ const CourseRightBar = function () {
   );
 };
 
-const sidebarData = [
+const courseData = [
   {
     heading: "Python Tutorial",
     items: [
-      "Python Home",
-      "Python Intro",
-      "Python Get Started",
-      "Python Syntax",
-      "Python Comments",
-      "Python Variables",
-      "Python Data Types",
-      "Python Numbers",
-      "Python Casting",
-      "Python String",
-      "Python Booleans",
-      "Python Operators",
-      "Python List",
-      "Python Tuples",
-      "Python Sets",
-      "Python Dictionaries",
-      "Python If...Else",
-      "Python Match",
-      "Python While Loops",
+      {
+        title: "Python Home",
+        slug: "python-home",
+        content: `
+# Python Home
+
+Welcome to the **Python Tutorial**!  
+In this series, you'll learn everything from basic syntax to working with modules and file handling.
+
+> Python is a powerful, easy-to-learn programming language loved by developers worldwide.
+        `,
+      },
+      {
+        title: "Python Intro",
+        slug: "python-intro",
+        content: `
+# Python Introduction
+
+## What is Python?
+
+Python is a popular programming language created by **Guido van Rossum** and released in **1991**.
+
+### It is used for:
+- Web development (server-side)
+- Software development
+- Mathematics
+- System scripting
+
+## What can Python do?
+- Create web applications
+- Connect to databases
+- Read and modify files
+- Handle big data and perform complex math
+- Prototype quickly and develop production software
+
+## Why Python?
+- Works on Windows, Mac, Linux, Raspberry Pi, etc.
+- Has simple, readable syntax
+- Runs on an interpreter (great for quick testing)
+- Supports multiple paradigms: procedural, OOP, and functional
+
+### Example
+\`\`\`python
+print("Hello, World!")
+\`\`\`
+
+> 💡 **Note:** The latest major version is **Python 3**.  
+Python 2 is deprecated but still used in legacy systems.
+        `,
+      },
+      {
+        title: "Python Get Started",
+        slug: "python-get-started",
+        content: `
+# Python Get Started
+
+To start coding in Python, install it from [python.org](https://www.python.org/downloads/).
+
+After installation, open your terminal and type:
+
+\`\`\`bash
+python --version
+\`\`\`
+
+If you see something like \`Python 3.12.0\`, you’re ready to go!
+
+## Running Python
+You can:
+- Write code in a text editor (e.g. VSCode, Sublime, Atom)
+- Use the interactive shell by typing \`python\`
+- Save scripts with the \`.py\` extension and run them with \`python script.py\`
+        `,
+      },
+      {
+        title: "Python Syntax",
+        slug: "python-syntax",
+        content: `
+# Python Syntax
+
+Python emphasizes **readability** with simple and clean syntax.
+
+### Example:
+\`\`\`python
+if 5 > 2:
+    print("Five is greater than two!")
+\`\`\`
+
+### Notes:
+- Indentation (whitespace) defines code blocks.
+- Python uses new lines to end statements, not semicolons.
+- Case-sensitive identifiers.
+        `,
+      },
     ],
   },
   {
     heading: "File Handling",
     items: [
-      "Python File Handling",
-      "Python Read Files",
-      "Python Write/Create Files",
-      "Python Delete Files",
+      {
+        title: "Python File Handling",
+        slug: "python-file-handling",
+        content: `
+# Python File Handling
+
+Python lets you work with files to **read**, **write**, and **delete** data.
+
+### Open a File
+\`\`\`python
+f = open("demo.txt", "r")
+print(f.read())
+\`\`\`
+
+Modes:
+- \`"r"\`: Read
+- \`"a"\`: Append
+- \`"w"\`: Write
+- \`"x"\`: Create
+        `,
+      },
+      {
+        title: "Python Read Files",
+        slug: "python-read-files",
+        content: `
+# Python Read Files
+
+Use the \`read()\` method to read file contents.
+
+\`\`\`python
+f = open("demo.txt", "r")
+print(f.read())
+f.close()
+\`\`\`
+
+You can also read line by line:
+
+\`\`\`python
+for line in open("demo.txt"):
+    print(line)
+\`\`\`
+        `,
+      },
     ],
   },
   {
     heading: "Python Modules",
     items: [
-      "NumPy Tutorial",
-      "Pandas Tutorials",
-      "SciPy Tutorial",
-      "Django Tutorial",
+      {
+        title: "NumPy Tutorial",
+        slug: "numpy-tutorial",
+        content: `
+# NumPy Tutorial
+
+NumPy is a Python library for working with **arrays** and **numerical computations**.
+
+\`\`\`python
+import numpy as np
+arr = np.array([1, 2, 3, 4])
+print(arr)
+\`\`\`
+        `,
+      },
+      {
+        title: "Pandas Tutorials",
+        slug: "pandas-tutorials",
+        content: `
+# Pandas Tutorial
+
+Pandas is a Python library for **data analysis and manipulation**.
+
+\`\`\`python
+import pandas as pd
+data = {"Name": ["John", "Anna"], "Age": [28, 24]}
+df = pd.DataFrame(data)
+print(df)
+\`\`\`
+        `,
+      },
     ],
   },
 ];

@@ -17,7 +17,7 @@ const AuthButton = () => {
 
   if (status === "loading")
     return (
-      <Button className="rounded-2xl border border-pink-600 bg-pink-100 text-base font-medium text-pink-600 hover:bg-pink-200 corner-squircle">
+      <Button className="rounded-xl border border-pink-600 bg-pink-100 text-base font-medium text-pink-600 hover:bg-pink-200 corner-squircle">
         <Skeleton className="h-full w-12 rounded-full" />
       </Button>
     );
@@ -26,7 +26,7 @@ const AuthButton = () => {
     return (
       <Button
         onClick={() => signIn("google")}
-        className="rounded-2xl border border-pink-600 bg-pink-100 text-base font-medium text-pink-600 hover:bg-pink-200 corner-squircle"
+        className="rounded-xl border border-pink-600 bg-pink-100 text-base font-medium text-pink-600 hover:bg-pink-200 corner-squircle"
       >
         Sign In
       </Button>
@@ -36,7 +36,7 @@ const AuthButton = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant={"ghost"} className="relative w-10 h-10 ">
-          <Avatar className="h-10 w-10 rounded-2xl corner-squircle">
+          <Avatar className="h-10 w-10 rounded-xl corner-squircle">
             <AvatarImage
               src={session.user?.image || ""}
               alt={session.user?.name || ""}
@@ -74,12 +74,3 @@ const AuthButton = () => {
 };
 
 export default AuthButton;
-
-{
-  /* <Button
-  onClick={() => signOut()}
-  className="rounded-2xl border border-pink-600 bg-pink-100 text-base font-medium text-pink-600 hover:bg-pink-200 corner-squircle"
->
-  Sign out
-</Button>; */
-}

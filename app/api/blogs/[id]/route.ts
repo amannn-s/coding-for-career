@@ -6,7 +6,6 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
-  console.log(id);
 
   try {
     const blog = await prisma.blog.findUnique({
@@ -14,6 +13,12 @@ export async function GET(
       include: {
         author: {
           select: { name: true, image: true },
+        },
+        categories: {
+          select: { id: true, name: true, slug: true },
+        },
+        tags: {
+          select: { id: true, name: true, slug: true },
         },
         _count: {
           select: { comments: true, likes: true },

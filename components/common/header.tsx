@@ -49,37 +49,8 @@ import AuthButton from "../auth-button";
 const Header = () => {
   return (
     <>
-      <header className="relative mx-auto h-18 max-w-5xl justify-between border-b-2 border-neutral-600 px-7 md:flex md:h-auto md:items-center md:border-0 md:py-6">
-        {/* <div className="hidden items-center gap-1 md:flex">
-          <Button className="bg-white text-black hover:bg-transparent">
-            <AlignRight />
-          </Button>
-          <Dialog>
-            <DialogTrigger asChild>
-              <Button
-                size={"icon"}
-                className="rounded-full bg-white text-black hover:bg-transparent"
-              >
-                <Search />
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle className="sr-only">Search</DialogTitle>
-                <Input
-                  className="rounded-none border-0 border-b-2 border-blue-600 ring-0 focus:ring-0"
-                  placeholder="Search..."
-                />
-              </DialogHeader>
-            </DialogContent>
-          </Dialog>
-        </div> */}
-        <div
-          className="absolute bottom-0 left-7 w-max translate-y-1/2 rounded-lg bg-white p-4 md:static md:translate-0 corner-squircle"
-          style={{
-            boxShadow: "2px 4px 6px rgba(0,0,0,0.15)",
-          }}
-        >
+      <header className="relative mx-auto h-18 w-full max-w-5xl justify-between border-b-2 border-neutral-600 px-2 md:flex md:h-auto md:items-center md:border-0 md:py-6">
+        <div className="corner-squircle absolute bottom-0 left-7 w-max translate-y-1/2 rounded-lg bg-white p-4 shadow-md md:static md:translate-0">
           <Link href={"/"}>
             <Image
               src={"/images/logo/coding-for-career.svg"}
@@ -91,13 +62,13 @@ const Header = () => {
           </Link>
         </div>
         <div className="flex h-full items-center justify-end">
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-2">
             <AuthButton />
             {false && (
               <Dialog>
                 <DialogTrigger asChild>
                   {
-                    <Button className="rounded-2xl border border-pink-600 bg-pink-100 text-base font-medium text-pink-600 hover:bg-pink-200 corner-squircle">
+                    <Button className="corner-squircle rounded-2xl border border-pink-600 bg-pink-100 text-base font-medium text-pink-600 hover:bg-pink-200">
                       Get Started
                     </Button>
                   }
@@ -111,13 +82,13 @@ const Header = () => {
               </Dialog>
             )}
 
-            <Button className="bg-white text-black hover:bg-transparent md:hidden">
+            <Button className="bg-transparent text-black hover:bg-white md:hidden">
               <AlignRight />
             </Button>
           </div>
         </div>
       </header>
-      <div className="mx-auto hidden max-w-5xl border-y-2 md:block">
+      <div className="mx-auto hidden w-full max-w-5xl border-y-2 md:block">
         <div className="flex items-center justify-center gap-1">
           <NavigationMenu viewport={false}>
             <NavigationMenuList>
@@ -127,17 +98,17 @@ const Header = () => {
                     key={index}
                     className="flex h-20 items-center"
                   >
-                    <NavigationMenuTrigger className="text-base">
+                    <NavigationMenuTrigger className="bg-transparent text-base">
                       {menu.title}
                     </NavigationMenuTrigger>
-                    <NavigationMenuContent className="!rounded-2xl corner-squircle !bg-white/80 backdrop-blur-sm !shadow-xl">
+                    <NavigationMenuContent className="corner-squircle z-20 !rounded-2xl !bg-white/80 !shadow-xl backdrop-blur-2xl">
                       <ul className="grid w-56 gap-4 font-normal">
                         <li>
                           {menu.items.map((item, idx) => (
                             <NavigationMenuLink asChild key={idx}>
                               <Link
                                 href={item.active ? item.href : "#"}
-                                className={`!rounded-xl corner-squircle !p-3`}
+                                className={`corner-squircle !rounded-xl !p-3`}
                               >
                                 <div
                                   className={`flex items-center gap-4 py-2 text-left text-lg font-medium ${
@@ -147,7 +118,7 @@ const Header = () => {
                                   }`}
                                 >
                                   <span
-                                    className={`scale-180  ${
+                                    className={`scale-180 ${
                                       item.active
                                         ? "fill-neutral-800"
                                         : "fill-neutral-500"
@@ -179,7 +150,7 @@ const Header = () => {
                       <Link href={menu.href}>{menu.title}</Link>
                     </NavigationMenuLink>
                   </NavigationMenuItem>
-                )
+                ),
               )}
             </NavigationMenuList>
           </NavigationMenu>

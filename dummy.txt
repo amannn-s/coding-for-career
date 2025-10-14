@@ -14,3 +14,71 @@ class First {
 
 ---
 ### Thank you for reading my blog.
+
+
+
+
+
+
+
+
+## What’s matchMedia?
+
+`matchMedia` is a method available on the `window` object that can be used to match or track a CSS media query on the `document`. Read more about it on [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia).
+
+## Syntax
+
+Taking a CSS media query for example
+
+```css
+@media (max-width: 480px) {
+  body {
+    font-size: 16px;
+    background-color: lightgray;
+  }
+}
+```
+
+We would need what’s written after `@media` as it is
+
+```js
+const matchMobileQuery = window.matchMedia("(max-width: 480px)");
+```
+
+Testing it on the browser console, here’s what the matchMedia returns
+
+![Code snippet](https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fn9mt6bsoru537yxtwz6a.png)
+
+So we can take the `matches` variable to check whether the query matched or not.
+
+To Track a media query, we can add a `change` event listener on the same `MediaQueryList` object given by the `matchMedia`.
+
+Let’s test this with an example of `prefers-color-scheme` media query
+
+```js
+const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+
+function handleChange(e) {
+  if (e.matches) {
+    console.log('Dark mode');
+  } else {
+    console.log('Light mode');
+  }
+}
+
+mediaQuery.addEventListener('change', handleChange);
+```
+
+We should see a console log whenever the color scheme changes
+
+![code snippet](https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fuploads%2Farticles%2Fjti7l0r7w37tfqn5t0q9.gif)
+
+## When to use?
+- To replace window.innerWidth to find out what device we’re on
+- Replace any element size tracking with resizeObserver, if it can be solved with a media query
+- It’s not just for screen size—use it to react to dark mode, device orientation, and more
+
+### Thanks for reading!
+
+If you made it till here, let’s hear your thoughts on this in the comments!
+

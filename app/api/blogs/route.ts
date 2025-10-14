@@ -5,10 +5,24 @@ export async function GET() {
   try {
     const blogs = await prisma.blog.findMany({
       where: { published: true },
-      include: {
-        author: {
-          select: { name: true, image: true },
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        excerpt: true,
+        thumbnail: true,
+        createdAt: true,
+        viewCount: true,
+        categories: {
+          select: { id: true, name: true, slug: true },
         },
+        tags: {
+          select: { id: true, name: true, slug: true },
+        },
+        // author: {
+        //   select: { name: true, image: true },
+        // },
+
         _count: {
           select: { comments: true, likes: true },
         },

@@ -1,24 +1,24 @@
-import React from "react";
+import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="mt-auto h-[4.375rem] bg-black text-white">
+    <footer className="mt-auto w-full bg-black py-6 text-white">
       <div className="flex h-full items-center justify-center px-7">
         <ul className="flex gap-4">
           <li>
-            <a href="#">Blog</a>
+            <Link href="#">Blog</Link>
           </li>
           <li>
-            <a href="#">About</a>
+            <Link href="#">About</Link>
           </li>
           <li>
-            <a href="#">Help</a>
+            <Link href="#">Help</Link>
           </li>
           <li>
-            <a href="#">Terms</a>
+            <Link href="#">Terms</Link>
           </li>
           <li>
-            <a href="#">Privacy</a>
+            <Link href="#">Privacy</Link>
           </li>
         </ul>
       </div>

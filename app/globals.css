@@ -121,6 +121,10 @@
   }
 }
 
+html,
+body {
+  scroll-behavior: smooth;
+}
 body::selection {
   @apply bg-pink-400/50;
 }
@@ -128,7 +132,7 @@ body::selection {
 .corner-squircle {
   corner-shape: squircle;
 }
-
+/* 
 .h1 {
   @apply scroll-m-20 text-4xl font-bold tracking-normal lg:text-5xl/normal;
 }
@@ -212,4 +216,4 @@ body::selection {
 }
 .course-content-main code {
   @apply block border-s-4 border-blue-500 bg-white px-4 py-3.5;
-}
+} */
