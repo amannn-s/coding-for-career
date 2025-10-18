@@ -16,7 +16,7 @@ const SingleCoursesPage = () => {
             setActiveItem={setActiveItem}
           />
           <CourseMain activeItem={activeItem} setActiveItem={setActiveItem} />
-          <CourseRightBar />
+          {/* <CourseRightBar /> */}
         </div>
       </div>
     </div>
@@ -81,7 +81,7 @@ const CourseMain = function ({
 
   return (
     <>
-      <main className="course-content-main col-span-8 mx-auto w-full max-w-2xl py-4">
+      <main className="course-content-main col-span-8 mx-auto w-full py-4">
         <div className="flex items-center justify-between py-4">
           <h1 className="">Python Introduction</h1>
           <div className="flex items-center gap-2.5">

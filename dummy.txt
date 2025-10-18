@@ -22,6 +22,10 @@ class First {
 
 
 
+CSS Media Query in Javascript
+
+CSS media queries are very effective and optimal for applying styles based on device properties and settings. We’re going to look at a feature in javascript that let’s us use CSS media queries in our JS.
+
 ## What’s matchMedia?
 
 `matchMedia` is a method available on the `window` object that can be used to match or track a CSS media query on the `document`. Read more about it on [MDN](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia).
